@@ -17,9 +17,7 @@ namespace SignalRDemo
         /// <summary>
         /// Gets the configuration.
         /// </summary>
-        /// <value>
-        /// The configuration.
-        /// </value>
+        /// <value>The configuration.</value>
         public IConfiguration Configuration { get; }
 
         #endregion
@@ -33,32 +31,6 @@ namespace SignalRDemo
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
-
-        /// <summary>
-        /// Configures the services.
-        /// </summary>
-        /// <param name="services">The services.</param>
-        public void ConfigureServices(IServiceCollection services)
-        {
-            // Add CORS to allow our application connect to this service
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy", builder => builder
-                .WithOrigins("http://localhost:4200")
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials());
-            });
-
-            // Add SignalR to the service
-
-            services.AddSignalR();
-
-            // Add worker to generate data
-
-            services.AddHostedService<Worker>();
         }
 
         /// <summary>
@@ -85,6 +57,32 @@ namespace SignalRDemo
             {
                 endpoints.MapHub<SignalRHub>("/signalRHub");
             });
+        }
+
+        /// <summary>
+        /// Configures the services.
+        /// </summary>
+        /// <param name="services">The services.</param>
+        public void ConfigureServices(IServiceCollection services)
+        {
+            // Add CORS to allow our application connect to this service
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder => builder
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+            });
+
+            // Add SignalR to the service
+
+            services.AddSignalR();
+
+            // Add worker to generate data
+
+            services.AddHostedService<Worker>();
         }
 
         #endregion

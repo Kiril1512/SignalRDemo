@@ -50,7 +50,7 @@ export class SignalRService {
     });
   }
 
-  // Add the data listner
+  // Add the data listener
   private addTransferChartDataListener = () => {
     this.hubConnection.on('broadcastChannel', (data) => {
       this.data = data;
@@ -58,7 +58,7 @@ export class SignalRService {
     });
   }
 
-  // Add message listner
+  // Add message listener
   private addMessageListener = () => {
     this.hubConnection.on('messageReceived', (message: Message) => {
       this.message = message;

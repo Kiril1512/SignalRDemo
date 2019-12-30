@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kyrylo.Yavorenko\\Desktop\\Server\\SignalRDemo.csproj": {}
+    "C:\\Users\\Kyrylo.Yavorenko\\Documents\\GitHub\\SignalRDemo\\Server\\SignalRDemo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kyrylo.Yavorenko\\Desktop\\Server\\SignalRDemo.csproj": {
+    "C:\\Users\\Kyrylo.Yavorenko\\Documents\\GitHub\\SignalRDemo\\Server\\SignalRDemo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kyrylo.Yavorenko\\Desktop\\Server\\SignalRDemo.csproj",
+        "projectUniqueName": "C:\\Users\\Kyrylo.Yavorenko\\Documents\\GitHub\\SignalRDemo\\Server\\SignalRDemo.csproj",
         "projectName": "SignalRDemo",
-        "projectPath": "C:\\Users\\Kyrylo.Yavorenko\\Desktop\\Server\\SignalRDemo.csproj",
+        "projectPath": "C:\\Users\\Kyrylo.Yavorenko\\Documents\\GitHub\\SignalRDemo\\Server\\SignalRDemo.csproj",
         "packagesPath": "C:\\Users\\Kyrylo.Yavorenko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kyrylo.Yavorenko\\Desktop\\Server\\obj\\",
+        "outputPath": "C:\\Users\\Kyrylo.Yavorenko\\Documents\\GitHub\\SignalRDemo\\Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

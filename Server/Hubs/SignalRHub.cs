@@ -8,7 +8,7 @@ namespace SignalRDemo.Hubs
     /// <summary>
     /// SignalR Hub.
     /// </summary>
-    /// <seealso cref="Microsoft.AspNetCore.SignalR.Hub" />
+    /// <seealso cref="Microsoft.AspNetCore.SignalR.Hub"/>
     public class SignalRHub : Hub
     {
         #region Constants
@@ -19,14 +19,14 @@ namespace SignalRDemo.Hubs
         private const string broadcastMethodName = "broadcastChannel";
 
         /// <summary>
-        /// The messages method name.
-        /// </summary>
-        private const string messagesMethodName = "messageReceived";
-
-        /// <summary>
         /// The chat group
         /// </summary>
         private const string chatGroup = "chatGroup";
+
+        /// <summary>
+        /// The messages method name.
+        /// </summary>
+        private const string messagesMethodName = "messageReceived";
 
         #endregion
 
@@ -38,7 +38,7 @@ namespace SignalRDemo.Hubs
         public override async Task OnConnectedAsync()
         {
             // Send a message to user that it has connected to the service
-            
+
             await this.Clients.Caller.SendAsync(broadcastMethodName, "Connected to the SignalR Hub! ConnectionId: " + this.Context.ConnectionId);
 
             await base.OnConnectedAsync();
@@ -47,22 +47,6 @@ namespace SignalRDemo.Hubs
         #endregion
 
         #region Public Methods
-
-        /// <summary>
-        /// Broadcasts the new message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        public async Task NewMessage(string message)
-        {
-            Message newMessage = new Message()
-            {
-                Id = this.Context.ConnectionId,
-                Payload = message,
-                Date = DateTime.UtcNow
-            };
-
-            await this.Clients.Group(chatGroup).SendAsync(messagesMethodName, newMessage);
-        }
 
         /// <summary>
         /// Joins the chat room.
@@ -104,6 +88,22 @@ namespace SignalRDemo.Hubs
             // Remove user from the chat group
 
             await this.Groups.RemoveFromGroupAsync(this.Context.ConnectionId, chatGroup);
+        }
+
+        /// <summary>
+        /// Broadcasts the new message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public async Task NewMessage(string message)
+        {
+            Message newMessage = new Message()
+            {
+                Id = this.Context.ConnectionId,
+                Payload = message,
+                Date = DateTime.UtcNow
+            };
+
+            await this.Clients.Group(chatGroup).SendAsync(messagesMethodName, newMessage);
         }
 
         #endregion
