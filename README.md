@@ -1,4 +1,6 @@
-# Introduction
+# SignalRDemo
+
+## Introduction
 
 This ```.NET Core 3``` and ```Angular 8``` project was created to demonstrate some of the uses cases of using ```SignalR```. The main focus was to demonstrate how we can broadcast real time data and show it in a chart using ```chart.js```, and create a room for multiple clients to chat using ```SignalR Groups``` feature.
 
@@ -30,4 +32,10 @@ To run, test and modify this projects you need to have the listed prerequisites 
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
+
+## Authors
+
+ **Kyrylo Yavorenko** - *Full-Stack Developer* - [Linkedin](https://www.linkedin.com/in/kyryloyavorenko/)
+
+See also the list of [contributors](https://github.com/Kiril1512/SignalRDemo/contributors) who participated in this project.
 
