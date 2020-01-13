@@ -16,7 +16,7 @@ export class SignalRService {
   // Start the connection
   public startConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://localhost:5001/signalRHub')
+      .withUrl('https://localhost:5001/signalRHub').configureLogging(signalR.LogLevel.Information)
       .build();
 
     this.hubConnection
