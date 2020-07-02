@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import * as signalR from "@aspnet/signalr";
+import * as signalR from "@microsoft/signalr";
 import { ChartModel } from '../interfaces/chartModel.interface';
 import { Message } from '../interfaces/messageModel.interface';
 
@@ -16,7 +16,9 @@ export class SignalRService {
   // Start the connection
   public startConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://localhost:5001/signalRHub').configureLogging(signalR.LogLevel.Information)
+      .withUrl('https://localhost:5001/signalRHub')
+      .configureLogging(signalR.LogLevel.Information)
+      .withAutomaticReconnect()
       .build();
 
     this.hubConnection
