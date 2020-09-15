@@ -1,7 +1,11 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
 using SignalRDemo.DataStorage;
 using SignalRDemo.Hubs;
 
@@ -25,9 +29,28 @@ namespace SignalRDemo
         #region Properties
 
         /// <summary>
+        /// The service provider.
+        /// </summary>
+        private IServiceProvider serviceProvider;
+
+        /// <summary>
         /// The hub.
         /// </summary>
         private IHubContext<SignalRHub> hub;
+
+        /// <summary>
+        /// Gets the logger.
+        /// </summary>
+        /// <value>
+        /// The logger.
+        /// </value>
+        private ILogger<Worker> Logger
+        {
+            get
+            {
+                return this.serviceProvider.GetRequiredService<ILogger<Worker>>();
+            }
+        }
 
         #endregion
 
@@ -37,8 +60,9 @@ namespace SignalRDemo
         /// Initializes a new instance of the <see cref="Worker"/> class.
         /// </summary>
         /// <param name="hub">The hub.</param>
-        public Worker(IHubContext<SignalRHub> hub)
+        public Worker(IServiceProvider serviceProvider, IHubContext<SignalRHub> hub)
         {
+            this.serviceProvider = serviceProvider;
             this.hub = hub;
         }
 
@@ -64,6 +88,9 @@ namespace SignalRDemo
             while (!stoppingToken.IsCancellationRequested)
             {
                 await this.hub.Clients.All.SendAsync(broadcastMethodName, DataManager.GetData());
+
+                this.Logger.LogDebug("Sent data to all users at {0}", DateTime.UtcNow);
+
                 await Task.Delay(5000, stoppingToken);
             }
         }

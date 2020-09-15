@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
 using SignalRDemo.Models;
 
 namespace SignalRDemo.Hubs
@@ -30,6 +33,46 @@ namespace SignalRDemo.Hubs
 
         #endregion
 
+        #region Fields
+
+        /// <summary>
+        /// The service provider.
+        /// </summary>
+        private readonly IServiceProvider serviceProvider;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the logger.
+        /// </summary>
+        /// <value>
+        /// The logger.
+        /// </value>
+        private ILogger<SignalRHub> Logger
+        {
+            get
+            {
+                return this.serviceProvider.GetRequiredService<ILogger<SignalRHub>>();
+            }
+        }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SignalRHub"/> class.
+        /// </summary>
+        /// <param name="serviceProvider">The service provider.</param>
+        public SignalRHub(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+        }
+
+        #endregion
+
         #region Hub Methods
 
         /// <summary>
@@ -38,6 +81,8 @@ namespace SignalRDemo.Hubs
         public override async Task OnConnectedAsync()
         {
             // Send a message to user that it has connected to the service
+
+            this.Logger.LogInformation("Connected client with Id = {0}", this.Context.ConnectionId);
 
             await this.Clients.Caller.SendAsync(broadcastMethodName, "Connected to the SignalR Hub! ConnectionId: " + this.Context.ConnectionId);
 
@@ -56,6 +101,8 @@ namespace SignalRDemo.Hubs
             // Add user to the chat group
 
             await this.Groups.AddToGroupAsync(this.Context.ConnectionId, chatGroup);
+
+            this.Logger.LogInformation("Added user with connectionId = {0} to group name = {1}", this.Context.ConnectionId, chatGroup);
 
             // Notify other users that new client is connected
 
@@ -88,6 +135,8 @@ namespace SignalRDemo.Hubs
             // Remove user from the chat group
 
             await this.Groups.RemoveFromGroupAsync(this.Context.ConnectionId, chatGroup);
+
+            this.Logger.LogInformation("Removed user with connectionId = {0} from group name = {1}", this.Context.ConnectionId, chatGroup);
         }
 
         /// <summary>
@@ -104,6 +153,8 @@ namespace SignalRDemo.Hubs
             };
 
             await this.Clients.Group(chatGroup).SendAsync(messagesMethodName, newMessage);
+
+            this.Logger.LogInformation("User with Id = {0} send to group name = {1} following message = {2} at {3}", newMessage.Id, chatGroup, newMessage.Payload, newMessage.Date.ToShortTimeString());
         }
 
         #endregion

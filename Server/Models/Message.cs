@@ -7,6 +7,8 @@ namespace SignalRDemo.Models
     /// </summary>
     public class Message
     {
+        #region Properties
+
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
@@ -24,5 +26,7 @@ namespace SignalRDemo.Models
         /// </summary>
         /// <value>The message.</value>
         public string Payload { get; set; }
+
+        #endregion
     }
 }

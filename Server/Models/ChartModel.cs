@@ -7,6 +7,8 @@ namespace SignalRDemo.Models
     /// </summary>
     public class ChartModel
     {
+        #region Properties
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ChartModel"/> class.
         /// </summary>
@@ -26,5 +28,7 @@ namespace SignalRDemo.Models
         /// </summary>
         /// <value>The label.</value>
         public string Label { get; set; }
+
+        #endregion
     }
 }

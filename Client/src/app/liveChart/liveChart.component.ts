@@ -7,6 +7,7 @@ import { SignalRService } from 'src/app/services/signal-r.service';
   templateUrl: './liveChart.component.html',
   styleUrls: ['./liveChart.component.css']
 })
+
 export class ChartComponent {
   public chartOptions: any = {
     scaleShowVerticalLines: true,

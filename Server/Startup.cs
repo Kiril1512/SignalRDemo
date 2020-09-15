@@ -83,6 +83,10 @@ namespace SignalRDemo
             // Add worker to generate data
 
             services.AddHostedService<Worker>();
+
+            // Add logging
+
+            services.AddLogging();
         }
 
         #endregion

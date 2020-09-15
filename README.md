@@ -28,7 +28,7 @@ To run, test and modify this projects you need to have the listed prerequisites 
  * Open the Server project, build and F5.
  * Open the Client project.
  * Open the console in the client folder and type ```npm install``` to install ```node_modules```.
- * Run the project using ```ng serve --aot --open```.
+ * Run the project using ```ng serve --open```.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
@@ -38,4 +38,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) f
  **Kyrylo Yavorenko** - *Full-Stack Developer* - [Linkedin](https://www.linkedin.com/in/kyryloyavorenko/)
 
 See also the list of [contributors](https://github.com/Kiril1512/SignalRDemo/contributors) who participated in this project.
-
