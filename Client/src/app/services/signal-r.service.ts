@@ -52,17 +52,17 @@ export class SignalRService {
     });
   }
 
-  // Add the data listener
+  // Add the chart data listener
   private addTransferChartDataListener = () => {
-    this.hubConnection.on('broadcastChannel', (data) => {
+    this.hubConnection.on('BroadcastChartData', (data) => {
       this.data = data;
       console.log(data);
     });
   }
 
-  // Add message listener
+  // Add chat message listener
   private addMessageListener = () => {
-    this.hubConnection.on('messageReceived', (message: Message) => {
+    this.hubConnection.on('BroadcastMessage', (message: Message) => {
       this.message = message;
       this.messages.push(this.message);
       console.log(message);
