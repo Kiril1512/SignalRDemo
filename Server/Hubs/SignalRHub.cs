@@ -12,24 +12,14 @@ namespace SignalRDemo.Hubs
     /// SignalR Hub.
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.SignalR.Hub"/>
-    public class SignalRHub : Hub
+    public class SignalRHub : Hub<ISignalRHub>
     {
         #region Constants
 
         /// <summary>
-        /// The broadcast method name.
+        /// The general chat group.
         /// </summary>
-        private const string broadcastMethodName = "broadcastChannel";
-
-        /// <summary>
-        /// The chat group
-        /// </summary>
-        private const string chatGroup = "chatGroup";
-
-        /// <summary>
-        /// The messages method name.
-        /// </summary>
-        private const string messagesMethodName = "messageReceived";
+        private const string generalChatGroup = "generalChatGroup";
 
         #endregion
 
@@ -84,7 +74,7 @@ namespace SignalRDemo.Hubs
 
             this.Logger.LogInformation("Connected client with Id = {0}", this.Context.ConnectionId);
 
-            await this.Clients.Caller.SendAsync(broadcastMethodName, "Connected to the SignalR Hub! ConnectionId: " + this.Context.ConnectionId);
+            await this.Clients.Caller.BroadcastMessage("Connected to the SignalR Hub! ConnectionId: " + this.Context.ConnectionId);
 
             await base.OnConnectedAsync();
         }
@@ -100,20 +90,20 @@ namespace SignalRDemo.Hubs
         {
             // Add user to the chat group
 
-            await this.Groups.AddToGroupAsync(this.Context.ConnectionId, chatGroup);
+            await this.Groups.AddToGroupAsync(this.Context.ConnectionId, generalChatGroup);
 
-            this.Logger.LogInformation("Added user with connectionId = {0} to group name = {1}", this.Context.ConnectionId, chatGroup);
+            this.Logger.LogInformation("Added user with connectionId = {0} to group name = {1}", this.Context.ConnectionId, generalChatGroup);
 
             // Notify other users that new client is connected
 
-            Message message = new Message()
+            ChatMessage message = new ChatMessage()
             {
                 Id = "ChatBot",
                 Payload = "Client with ID: " + this.Context.ConnectionId + " joined the chat!",
                 Date = DateTime.UtcNow
             };
 
-            await this.Clients.Group(chatGroup).SendAsync(messagesMethodName, message);
+            await this.Clients.Group(generalChatGroup).BroadcastMessage(message);
         }
 
         /// <summary>
@@ -123,20 +113,20 @@ namespace SignalRDemo.Hubs
         {
             // Notify other users that new client is connected
 
-            Message message = new Message()
+            ChatMessage message = new ChatMessage()
             {
                 Id = "ChatBot",
                 Payload = "Client with ID: " + this.Context.ConnectionId + " has left the chat!",
                 Date = DateTime.UtcNow
             };
 
-            await this.Clients.Group(chatGroup).SendAsync(messagesMethodName, message);
+            await this.Clients.Group(generalChatGroup).BroadcastMessage(message);
 
             // Remove user from the chat group
 
-            await this.Groups.RemoveFromGroupAsync(this.Context.ConnectionId, chatGroup);
+            await this.Groups.RemoveFromGroupAsync(this.Context.ConnectionId, generalChatGroup);
 
-            this.Logger.LogInformation("Removed user with connectionId = {0} from group name = {1}", this.Context.ConnectionId, chatGroup);
+            this.Logger.LogInformation("Removed user with connectionId = {0} from group name = {1}", this.Context.ConnectionId, generalChatGroup);
         }
 
         /// <summary>
@@ -145,16 +135,16 @@ namespace SignalRDemo.Hubs
         /// <param name="message">The message.</param>
         public async Task NewMessage(string message)
         {
-            Message newMessage = new Message()
+            ChatMessage newMessage = new ChatMessage()
             {
                 Id = this.Context.ConnectionId,
                 Payload = message,
                 Date = DateTime.UtcNow
             };
 
-            await this.Clients.Group(chatGroup).SendAsync(messagesMethodName, newMessage);
+            await this.Clients.Group(generalChatGroup).BroadcastMessage(newMessage);
 
-            this.Logger.LogInformation("User with Id = {0} send to group name = {1} following message = {2} at {3}", newMessage.Id, chatGroup, newMessage.Payload, newMessage.Date.ToShortTimeString());
+            this.Logger.LogInformation("User with Id = {0} send to group name = {1} following message = {2} at {3}", newMessage.Id, generalChatGroup, newMessage.Payload, newMessage.Date.ToShortTimeString());
         }
 
         #endregion

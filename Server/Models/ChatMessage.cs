@@ -5,7 +5,7 @@ namespace SignalRDemo.Models
     /// <summary>
     /// Message model.
     /// </summary>
-    public class Message
+    public class ChatMessage
     {
         #region Properties
 

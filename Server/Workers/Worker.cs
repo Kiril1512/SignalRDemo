@@ -17,26 +17,17 @@ namespace SignalRDemo
     /// <seealso cref="Microsoft.Extensions.Hosting.BackgroundService"/>
     public class Worker : BackgroundService
     {
-        #region Constants
-
-        /// <summary>
-        /// The broadcast method name.
-        /// </summary>
-        private const string broadcastMethodName = "broadcastChannel";
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         /// The service provider.
         /// </summary>
-        private IServiceProvider serviceProvider;
+        private readonly IServiceProvider serviceProvider;
 
         /// <summary>
         /// The hub.
         /// </summary>
-        private IHubContext<SignalRHub> hub;
+        private readonly IHubContext<SignalRHub, ISignalRHub> hub;
 
         /// <summary>
         /// Gets the logger.
@@ -60,7 +51,7 @@ namespace SignalRDemo
         /// Initializes a new instance of the <see cref="Worker"/> class.
         /// </summary>
         /// <param name="hub">The hub.</param>
-        public Worker(IServiceProvider serviceProvider, IHubContext<SignalRHub> hub)
+        public Worker(IServiceProvider serviceProvider, IHubContext<SignalRHub, ISignalRHub> hub)
         {
             this.serviceProvider = serviceProvider;
             this.hub = hub;
@@ -87,7 +78,7 @@ namespace SignalRDemo
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await this.hub.Clients.All.SendAsync(broadcastMethodName, DataManager.GetData());
+                await this.hub.Clients.All.BroadcastChartData(DataManager.GetData());
 
                 this.Logger.LogDebug("Sent data to all users at {0}", DateTime.UtcNow);
 
