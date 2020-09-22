@@ -3,10 +3,16 @@ using System.Threading.Tasks;
 
 using SignalRDemo.Models;
 
-namespace SignalRDemo.Hubs
+namespace SignalRDemo.Hub.Interfaces
 {
     public interface ISignalRHub
     {
+        /// <summary>
+        /// Broadcasts the chart data.
+        /// </summary>
+        /// <param name="chartData">The chart data.</param>
+        Task BroadcastChartData(List<ChartModel> chartData);
+
         /// <summary>
         /// Broadcasts the message.
         /// </summary>
@@ -18,11 +24,5 @@ namespace SignalRDemo.Hubs
         /// </summary>
         /// <param name="message">The chat message.</param>
         Task BroadcastMessage(ChatMessage message);
-
-        /// <summary>
-        /// Broadcasts the chart data.
-        /// </summary>
-        /// <param name="chartData">The chart data.</param>
-        Task BroadcastChartData(List<ChartModel> chartData);
     }
 }

@@ -7,16 +7,12 @@
   <ItemGroup>
     <Compile Remove="ClientApp\**" />
     <Compile Remove="SignalRDemoTests\**" />
-    <Compile Remove="TestResults\**" />
     <Content Remove="ClientApp\**" />
     <Content Remove="SignalRDemoTests\**" />
-    <Content Remove="TestResults\**" />
     <EmbeddedResource Remove="ClientApp\**" />
     <EmbeddedResource Remove="SignalRDemoTests\**" />
-    <EmbeddedResource Remove="TestResults\**" />
     <None Remove="ClientApp\**" />
     <None Remove="SignalRDemoTests\**" />
-    <None Remove="TestResults\**" />
   </ItemGroup>
 
 

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using SignalRDemo.DataStorage;
+using SignalRDemo.Hub.Interfaces;
 using SignalRDemo.Hubs;
 
 namespace SignalRDemo
@@ -20,21 +22,19 @@ namespace SignalRDemo
         #region Properties
 
         /// <summary>
-        /// The service provider.
-        /// </summary>
-        private readonly IServiceProvider serviceProvider;
-
-        /// <summary>
         /// The hub.
         /// </summary>
         private readonly IHubContext<SignalRHub, ISignalRHub> hub;
 
         /// <summary>
+        /// The service provider.
+        /// </summary>
+        private readonly IServiceProvider serviceProvider;
+
+        /// <summary>
         /// Gets the logger.
         /// </summary>
-        /// <value>
-        /// The logger.
-        /// </value>
+        /// <value>The logger.</value>
         private ILogger<Worker> Logger
         {
             get
