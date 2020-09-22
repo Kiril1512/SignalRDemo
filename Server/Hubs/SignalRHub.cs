@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using SignalRDemo.Hub.Interfaces;
 using SignalRDemo.Models;
 
 namespace SignalRDemo.Hubs
@@ -37,9 +39,7 @@ namespace SignalRDemo.Hubs
         /// <summary>
         /// Gets the logger.
         /// </summary>
-        /// <value>
-        /// The logger.
-        /// </value>
+        /// <value>The logger.</value>
         private ILogger<SignalRHub> Logger
         {
             get
