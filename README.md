@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This ```.NET Core 3``` and ```Angular 8``` project was created to demonstrate some of the uses cases of using ```SignalR```. The main focus was to demonstrate how we can broadcast real time data and show it in a chart using ```chart.js```, and create a room for multiple clients to chat using ```SignalR Groups``` feature.
+This ```.NET Core 3.1``` and ```Angular 10``` project was created to demonstrate some of the uses cases of using ```SignalR```. The main focus was to demonstrate how we can broadcast real time data and show it in a chart using ```chart.js```, and create a room for multiple clients to chat using ```SignalR Groups``` feature.
 
 ## Features/Build with
 
